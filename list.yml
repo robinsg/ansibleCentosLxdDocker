@@ -1,0 +1,6 @@
+---
+
+- hosts: all
+  tasks:
+   - name: list files in folders
+     command: ls 

@@ -1,0 +1,9 @@
+---
+# ./lxdCreateContainer.yml
+#
+- name: Create Ubuntu 20:04 container
+  hosts: all
+  gather_facts: false
+  roles:
+    - lxdCreate
+

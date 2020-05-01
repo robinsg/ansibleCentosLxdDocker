@@ -1,0 +1,4 @@
+---
+# defaults file for roles/lxdCreate
+container: c01-docker
+img_server: "https://images.linuxcontainers.org"

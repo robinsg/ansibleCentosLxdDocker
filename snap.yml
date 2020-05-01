@@ -1,0 +1,10 @@
+---
+# ./snap.yml
+
+- name: Install and configure snap
+  hosts: all
+  gather_facts: false
+  become: true
+
+  roles:
+    - snap

@@ -1,0 +1,7 @@
+centos:
+  hosts:
+    t530:
+    t500:
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+

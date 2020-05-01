@@ -1,0 +1,7 @@
+---
+# tasks file for roles/lxd
+
+- name: Install lxd from snap
+  snap:
+    name: lxd
+    state: present

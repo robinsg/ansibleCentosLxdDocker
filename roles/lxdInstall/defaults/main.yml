@@ -1,0 +1,3 @@
+---
+# defaults file for roles/lxd
+ansible_become_pass: "amgems01"

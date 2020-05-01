@@ -1,0 +1,18 @@
+---
+# tasks file for roles/snap
+- name: Add the snapd tool
+  yum:
+    name: snapd
+    state: latest
+
+- name: enable and start snapd.socket
+  systemd:
+    name:  snapd.socket
+    state: started
+    enabled: yes
+
+- name: enable and start snapd.service
+  systemd:
+    name: snapd.service
+    state: started
+    enabled: yes
