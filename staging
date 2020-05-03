@@ -8,5 +8,5 @@ all:
   children:
     containers:
       hosts:
-        c[01-09]-docker:
+        c[01:09]-docker:
           ansible_connection: lxd
