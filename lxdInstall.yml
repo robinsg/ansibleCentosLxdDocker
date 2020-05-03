@@ -2,7 +2,7 @@
 # ./lxdInstall.yml
 
 - name: install LXD
-  hosts: all
+  hosts: centos
   gather_facts: false
   become: true
 

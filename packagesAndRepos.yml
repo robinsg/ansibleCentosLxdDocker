@@ -1,7 +1,7 @@
 ---
 # ./packagesAndRepos
 
-- hosts: all
+- hosts: centos
   gather_facts: true
   become: true
 
