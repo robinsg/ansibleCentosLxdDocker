@@ -5,3 +5,19 @@
   snap:
     name: lxd
     state: present
+
+- name: Preseed LXD initisalsation
+  copy:
+    src: preseed.yml
+    dest: "{{ preseed_destination }}"
+    mode: "{{ preseed_mode }}"
+
+- name: Run LXD preseed initialistion
+  shell:
+    chdir: "{{ lxd_bin }}"
+    cmd: ./lxd init --preseed < {{ preseed_destination }}
+
+- name: Remove the preseed file
+  file:
+    path: "{{ preseed_destination }}"
+    state: absent
