@@ -1,4 +1,12 @@
 ---
 # defaults file for roles/lxdCreate
-container: c01-docker
+###container: c01-docker
+container:
+  - c01-docker
+  - c02-docker
+  - c03-docker
 img_server: "https://images.linuxcontainers.org"
+storageDriver: "lvm"
+storageSize: "40GB"
+httpsAddress: "192.168.0.25:8443"
+corePassword: "amgems01"

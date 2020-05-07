@@ -1,15 +1,15 @@
 # Daemon settings
 config:
-  core.https_address: 192.168.0.25:9999
-  core.trust_password: sekret
+  core.https_address: "{{ httpsAddress }}"
+  core.trust_password: "{{ corePassword }}"
   images.auto_update_interval: 6
 
 # Storage pools
 storage_pools:
 - name: lvm_default
-  driver: lvm
+  driver: "{{ storageDriver }}"
   config:
-    size: 40GB
+    size: "{{ storageSize }}"
 
 # Network devices
 networks:

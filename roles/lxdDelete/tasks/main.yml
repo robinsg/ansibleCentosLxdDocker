@@ -1,0 +1,40 @@
+---
+# tasks file for roles/lxdDelete
+- name: Stop all containers
+  command: lxc stop --force --all
+
+- name: Get list of containers
+  shell: lxc list --fast | grep CONTAINER|awk 'BEGIN { FS="| " } { print $2}'
+  register: allContainers
+
+- name: Delete the containers found
+  lxd_container:
+    name: "{{ item }}"
+    state: absent
+  with_items: "{{ allContainers.stdout_lines }}"
+
+#- name: Delete images
+#  shell: 
+
+- name : Clear default LXD profile so that storage volume can be deleted
+  shell: "printf 'config: {}\ndevices: {}' | lxc profile edit default"
+
+- name: Get list of LXD managed networks
+  shell: lxc network list | grep YES|awk 'BEGIN { FS="| " } { print $2}'
+  register: allNetworks
+
+- name: Delete the networks found
+  shell: lxc network delete "{{ item }}"
+  with_items: "{{ allNetworks.stdout_lines }}"
+
+- name: Get list of LXD volumes
+  shell: lxc storage list | grep ".img"|awk 'BEGIN { FS="| " } { print $2}'
+  register: allStorage
+
+- name: Delete the networks found
+  shell: lxc storage delete "{{ item }}"
+  with_items: "{{ allStorage.stdout_lines }}"
+
+- name: Delete LXD from snap repository. Using shell as snap module does not have purge option
+  shell: snap remove lxd --purge
+  become: yes

@@ -1,0 +1,8 @@
+---
+# ./lxdDelete.yml
+#
+- name: Delete all LXD
+  hosts: centos
+  gather_facts: false
+  roles:
+    - lxdDelete

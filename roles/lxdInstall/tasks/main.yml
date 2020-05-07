@@ -7,10 +7,14 @@
     state: present
 
 - name: Preseed LXD initisalsation
-  copy:
-    src: preseed.yml
+  template:
+    src: "{{ preseed_template }}"
     dest: "{{ preseed_destination }}"
     mode: "{{ preseed_mode }}"
+#  copy:
+#    src: preseed.yml
+#    dest: "{{ preseed_destination }}"
+#    mode: "{{ preseed_mode }}"
 
 - name: Run LXD preseed initialistion
   shell:
