@@ -3,6 +3,6 @@
 #
 - name: Delete all LXD
   hosts: centos
-  gather_facts: false
+  gather_facts: true
   roles:
     - lxdDelete

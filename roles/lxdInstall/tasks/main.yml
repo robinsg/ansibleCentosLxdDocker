@@ -5,23 +5,35 @@
   snap:
     name: lxd
     state: present
+  register: snapLxd
 
-- name: Preseed LXD initisalsation
-  template:
-    src: "{{ preseed_template }}"
-    dest: "{{ preseed_destination }}"
-    mode: "{{ preseed_mode }}"
-#  copy:
-#    src: preseed.yml
-#    dest: "{{ preseed_destination }}"
-#    mode: "{{ preseed_mode }}"
+- name: Initialise LXD and add remote
+  block:
+  - name: Preseed LXD initisalsation
+    template:
+      src: "{{ preseed_template }}"
+      dest: "{{ preseed_destination }}"
+      mode: "{{ preseed_mode }}"
 
-- name: Run LXD preseed initialistion
-  shell:
-    chdir: "{{ lxd_bin }}"
-    cmd: ./lxd init --preseed < {{ preseed_destination }}
+  - name: Run LXD preseed initialistion
+    shell:
+      chdir: "{{ lxd_bin }}"
+      cmd: ./lxd init --preseed < {{ preseed_destination }}
 
-- name: Remove the preseed file
-  file:
-    path: "{{ preseed_destination }}"
-    state: absent
+  - name: Remove the preseed file
+    file:
+      path: "{{ preseed_destination }}"
+      state: absent
+
+  - name: Give local system remote access to LXD server
+    delegate_to: localhost
+    expect:
+      command: "lxc remote add {{ inventory_hostname }} {{ ansible_default_ipv4.address }}"
+      responses:
+        (.*)ok (.*): "y"
+        (.*)Admin password (.*): "{{ corePassword }}"
+    # Don't show passwords in your logs
+    no_log: true
+    become: yes
+    become_user: robinsg
+  when: snapLxd.changed

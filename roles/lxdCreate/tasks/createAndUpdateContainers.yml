@@ -29,17 +29,11 @@
       security.privileged: "true"
   when: lxc_list.stdout != "1" 
 
-- name: check python is installed in container
-  delegate_to: "{{ item }}"
-  raw: dpkg -s python2
-  register: python_install_check
-  failed_when: python_install_check.rc not in [0, 1]
-  changed_when: false
-
 - name: install python in container
   delegate_to: "{{ item }}"
-  raw: apt-get install -y python
-  when: python_install_check.rc == 1
+  raw: /usr/bin/apt-get install -y python3
+  #register: ret_code
+
 
 - name: Display message to stdout when comtainer already exists
   debug:
