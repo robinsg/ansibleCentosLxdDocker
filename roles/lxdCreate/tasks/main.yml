@@ -2,7 +2,14 @@
 # main.yml
 # tasks file for roles/lxd
 
+- name: Set LXD default server to current inventory host
+  delegate_to: localhost
+  command: lxc remote switch "{{ inventory_hostname }}"
+  
 - name: Create containers, update and add python
   include_tasks:  createAndUpdateContainers.yml
   with_items: "{{ container }}"
 
+- name: Set LXD default server back to local
+  delegate_to: localhost
+  command: lxc remote switch local

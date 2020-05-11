@@ -3,7 +3,7 @@
 #
 - name: Create Ubuntu 20:04 container
   hosts: centos
-  gather_facts: false
+  gather_facts: true
   roles:
     - lxdCreate
 
