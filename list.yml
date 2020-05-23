@@ -1,7 +1,0 @@
----
-
-- hosts: centos
-  gather_facts: false
-  tasks:
-   - name: list files in folders
-     command: ls 

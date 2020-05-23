@@ -1,0 +1,5 @@
+---
+# main.yml
+- name: Install and enable docker
+  include_tasks:  installDocker.yml
+  with_items: "{{ container }}"
