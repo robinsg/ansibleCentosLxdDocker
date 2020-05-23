@@ -1,9 +1,22 @@
 ---
 # ./lxdCreateContainer.yml
 #
+- name: Set LXD remote connection
+  hosts: localhost  
+  connection: local
+  gather_facts: false
+  roles:
+    - lxdRemote
+
 - name: Create Ubuntu 20:04 container
   hosts: centos
   gather_facts: true
   roles:
     - lxdCreate
 
+- name: Reset LXD remote back to local
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - lxdLocal   

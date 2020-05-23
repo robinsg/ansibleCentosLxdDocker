@@ -3,8 +3,6 @@
 ###container: c01-docker
 container:
   - c01-docker
-  - c02-docker
-  - c03-docker
 img_server: "https://images.linuxcontainers.org"
 storageDriver: "lvm"
 storageSize: "40GB"
