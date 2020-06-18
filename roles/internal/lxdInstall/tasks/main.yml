@@ -33,7 +33,7 @@
         (.*)ok (.*): "y"
         (.*)Admin password (.*): "{{ corePassword }}"
     # Don't show passwords in your logs
-    no_log: true
+    no_log: false
     become: yes
     become_user: robinsg
   when: snapLxd.changed

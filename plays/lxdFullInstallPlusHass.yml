@@ -1,0 +1,60 @@
+---
+# ./lxdFullInstalPlusHass.yml
+#
+- name: Set up LXD host
+  hosts: centos
+  gather_facts: true
+  become: true
+  roles:
+    - yum
+    - snap
+    - lxdInstall
+    - lxdRemote
+  tags: hostConfig
+  
+- name: Get container name to create and add host
+  hosts: centos
+  gather_facts: false
+  become: false
+  roles:
+    - setContainer
+    - lxdCreate
+  vars_prompt:
+    - name: "containerName"
+      prompt: "Name of container to create?"
+      private: false
+  tags: cntrCreate
+
+- name: Install Python, Docker and pull Home Assistant
+  hosts: containers
+  gather_facts: true
+  roles:
+    - lxdPythonInstall
+    - ubuntuDockerInstall
+    - NFSSetup
+  tags: cntrConfig
+
+- name: Add firewall rule for Home Assistant to LXD host
+  hosts: centos
+  gather_facts: flase
+  become: true
+  roles:
+    - hassInstallFwRules
+  tags: configFW
+
+- name: Run HASS container
+  hosts: containers
+  gather_facts: false
+  become: false
+  roles:
+    - runHass
+  tags: Hass
+
+- name: Reset LXD remote back to local
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - lxdLocal
+  tags: always
+

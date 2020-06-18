@@ -1,0 +1,11 @@
+---
+# tasks file for roles/internal/hasDeleteFwRules
+- name: Remove forward port rule (firewalld module doesn't currently support this)
+  command:
+    cmd: "firewall-cmd --zone={{ HostZone }} --remove-forward-port=port={{ HassPort }}:proto=tcp:toport={{ HassPort }}:toaddr={{ ansible_default_ipv4.address }} --permanent"
+  become: true
+
+- name: Reload the firewall rules to activate the port forwarding
+  command:
+    cmd: "firewall-cmd --reload"
+  become: true

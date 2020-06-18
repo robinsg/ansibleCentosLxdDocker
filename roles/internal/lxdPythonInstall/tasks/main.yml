@@ -1,0 +1,5 @@
+---
+# tasks file for roles/internal/lxcRawSetup
+
+- name: install python in container
+  raw: /usr/bin/apt-get install -y python3

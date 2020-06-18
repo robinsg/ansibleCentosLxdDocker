@@ -1,0 +1,4 @@
+---
+# defaults file for ../roles/internal/hassInstallFwRules
+HassPort: 8123
+HostZone: public

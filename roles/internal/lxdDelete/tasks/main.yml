@@ -35,9 +35,11 @@
   shell: lxc storage delete "{{ item }}"
   with_items: "{{ allStorage.stdout_lines }}"
 
-- name: Remove remote LXD server from locaohost
-  shell: lxc remote remove "{{ inventory_hostname }}"
-  delegate_to: localhost
+####### Move this a separate role which can be run after the lxd connection has been reset back to local #####
+
+#- name: Remove remote LXD server from localhost
+#  shell: lxc remote remove "{{ inventory_hostname }}"
+#  delegate_to: localhost
 
 - name: Delete LXD from snap repository. Using shell as snap module does not have purge option
   shell: snap remove lxd --purge

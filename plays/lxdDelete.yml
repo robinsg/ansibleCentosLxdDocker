@@ -1,8 +1,24 @@
 ---
 # ./lxdDelete.yml
 #
+- name: Set LXD remote connection
+  hosts: localhost  
+  connection: local
+  gather_facts: false
+  roles:
+    - lxdRemote
+
 - name: Delete all LXD
   hosts: centos
   gather_facts: true
   roles:
+    - hassDeleteFwRules
     - lxdDelete
+
+- name: Reset LXD remote back to local
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - lxdLocal
+    - lxdDeleteRemote

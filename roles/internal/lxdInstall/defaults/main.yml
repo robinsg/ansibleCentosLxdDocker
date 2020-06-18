@@ -1,17 +1,16 @@
 ---
 # defaults file for roles/lxd
-ansible_become_pass: !vault |
+preseed_template: preseed.j2
+preseed_destination: /tmp/lxdPreseed.yml
+preseed_mode: '0644'
+lxd_bin: /var/lib/snapd/snap/bin
+httpsAddress: 192.168.0.25
+corePassword: !vault |
           $ANSIBLE_VAULT;1.1;AES256
           65343562306561386633323861626565613466626661373464343966313761666634396436336535
           3061363831663131306563653331303434343136653935650a363432343735666261343235643531
           35393538613663356436623065353135653830666131323137633761303063616630393431303730
           3832666162616531390a383231303831366235333561613531343465333138633565336636393565
           3761
-preseed_template: preseed.j2
-preseed_destination: /tmp/lxdPreseed.yml
-preseed_mode: '0644'
-lxd_bin: /var/lib/snapd/snap/bin
-httpsAddress: 192.168.0.25
-corePassword: amgems01
 storageDriver: lvm
 storageSize: 40GB

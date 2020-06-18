@@ -1,0 +1,4 @@
+---
+# tasks file for roles/internal/lxdDeleteRemote
+- name: Delete the remote connection
+  command: "lxc remote remove {{ lxdHosts }}"

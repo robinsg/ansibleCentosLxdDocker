@@ -1,2 +1,7 @@
 ---
 # handlers file for roles/ubuntuDockerInstall
+- name: Start and enable docker at restart
+  systemd:
+    state: started
+    name: docker
+    enabled: yes

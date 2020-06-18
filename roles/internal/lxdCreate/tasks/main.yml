@@ -2,6 +2,20 @@
 # main.yml
 # tasks file for roles/lxdCreate
 
-- name: Create containers, update and add python
-  include_tasks:  createAndUpdateContainers.yml
-  with_items: "{{ container }}"
+
+- name: Create container and apply settings
+  lxd_container:
+    name: "{{ containerName }}"
+    state: started
+    source:
+      type: image
+      mode: pull
+      server: "{{ img_server }}"
+      protocol: simplestreams # if you get a 404, try setting protocol: simplestreams
+      alias: ubuntu/focal/amd64
+    profiles: ["default"]
+    wait_for_ipv4_addresses: true
+    timeout: 600
+    config:
+      security.nesting: "true"
+      security.privileged: "true"
